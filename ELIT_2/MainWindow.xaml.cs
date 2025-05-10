@@ -18,7 +18,7 @@ namespace ELIT_2
 
         private void LoadData()
         {
-            string connectionString = "server=localhost; user=root; password=; database=applicants;";
+            string connectionString = "server=192.168.0.169; user=remote_user; password=1234; database=applicants;";
             applicantList.Clear();
 
             try
