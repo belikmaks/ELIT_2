@@ -9,6 +9,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Image Source="\\Mac\Home\Desktop\4 семестр\ТСПП\logo.png" Height="30" Margin="0,0,10,0"/>
             <TextBlock FontWeight="Bold" FontSize="20"
                        Text="Приймальна комісія"
                        VerticalAlignment="Center" Margin="10,0"/>
@@ -16,7 +17,7 @@
                 <Button Content="Додати" Background="Green" Foreground="White"
                         Margin="0,0,10,0" Padding="10,5"/>
                 <Button Content="Редагувати" Background="SteelBlue" Foreground="White"
-                        Padding="10,5"/>
+                        Padding="10,5" Click="EditButton_Click"/>
             </StackPanel>
         </DockPanel>
 

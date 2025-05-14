@@ -54,14 +54,18 @@ namespace ELIT_2
 
         private void ApplyFilter_Click(object sender, RoutedEventArgs e)
         {
-            string filter = FilterTextBox.Text.ToLower();
-            if (ApplicantsGrid.ItemsSource is List<Applicants> list)
+            if (float.TryParse(FilterTextBox.Text, out float minGrade))
             {
-                ApplicantsGrid.ItemsSource = list
-                    .Where(a => a.LastName.ToLower().Contains(filter) || a.FirstName.ToLower().Contains(filter))
+                ApplicantsGrid.ItemsSource = applicantList
+                    .Where(a => a.ExamGrades >= minGrade)
                     .ToList();
             }
+            else
+            {
+                MessageBox.Show("Введіть коректне число для фільтрації за середнім балом.");
+            }
         }
+
 
         private void ClearFilter_Click(object sender, RoutedEventArgs e)
         {
@@ -88,6 +92,12 @@ namespace ELIT_2
         private void ClearSort_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Edit editWindow = new Edit();
+            editWindow.ShowDialog();
         }
     }
 }
