@@ -99,5 +99,51 @@ namespace ELIT_2
             Edit editWindow = new Edit();
             editWindow.ShowDialog();
         }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddWindow addWindow = new AddWindow();
+            addWindow.ShowDialog();
+            LoadData();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ApplicantsGrid.SelectedItem is Applicants selected)
+            {
+                MessageBoxResult result = MessageBox.Show($"Ви впевнені, що хочете видалити абітурієнта {selected.LastName} {selected.FirstName}?",
+                                                          "Підтвердження видалення", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string connectionString = "server=192.168.0.169; user=remote_user; password=1234; database=applicants;";
+                    try
+                    {
+                        using (MySqlConnection conn = new MySqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            string sql = "DELETE FROM applicantlist WHERE Id = @id";
+                            using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@id", selected.Id);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        LoadData(); 
+                        MessageBox.Show("Абітурієнта видалено.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Помилка видалення: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Виберіть абітурієнта для видалення.");
+            }
+        }
+
     }
 }
